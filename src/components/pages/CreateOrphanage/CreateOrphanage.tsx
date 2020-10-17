@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import L, { LeafletMouseEvent } from 'leaflet';
 
@@ -8,6 +8,7 @@ import mapMarkerImg from '../../../images/logo2.svg';
 
 import './create-orphanage.css';
 import SideBar from "../../shared/SideBar/SideBar";
+import api from "../../../services/api";
 
 const happyMapIcon = L.icon({
   iconUrl: mapMarkerImg,
@@ -25,6 +26,8 @@ export default function CreateOrphanage() {
   const [instructions, setInstructions] = useState('');
   const [open_hours, setOpenHours] = useState('');
   const [open_on_weekends, setOpenOnWeekends] = useState(true);
+  const [images, setImages] = useState<File[]>([]);
+  const [imagesURLs, setImagesURLs] = useState<string[]>([]);
 
   function handleMapClick(e : LeafletMouseEvent) {
     setMapMarkerLatLong(e.latlng);
@@ -32,6 +35,35 @@ export default function CreateOrphanage() {
 
   function handleFormSubmit(ev: FormEvent) {
     ev.preventDefault();
+
+    const data = new FormData();
+
+    data.append('name', name);
+    data.append('description', description);
+    data.append('latitude', String(mapMarkerLatLong.lat));
+    data.append('longitude', String(mapMarkerLatLong.lng));
+    data.append('instructions', instructions);
+    data.append('open_hours', open_hours);
+    data.append('open_on_weekends', String(open_on_weekends));
+
+    images.forEach(image => data.append('images', image));
+
+    api.post('orphanages', data).then(res => {
+
+    });
+  }
+
+  function handleImagesSelect(ev: ChangeEvent<HTMLInputElement>) {
+    if(!ev.target.files)
+      return;
+    
+
+    const imagesArray = [...images, ...Array.from(ev.target.files)];
+
+    const imagesURLsArray = imagesArray.map(image => window.URL.createObjectURL(image));
+
+    setImagesURLs(imagesURLsArray);
+    setImages(imagesArray);
   }
 
   return (
@@ -68,15 +100,19 @@ export default function CreateOrphanage() {
             </div>
 
             <div className="input-block">
-              <label htmlFor="images">Fotos</label>
+              <label>Fotos</label>
 
-              <div className="uploaded-image">
+              <div className="images-container">
 
+                {imagesURLs.map(url => <img key={url} src={url} alt="Imagem do orfanato" />)}
+
+                <label htmlFor="images" className="new-image">
+                  <FiPlus size={24} color="#15b6d6" />
+                </label>
+
+                <input onChange={handleImagesSelect} type="file" multiple id="images" style={{display: 'none'}} />
               </div>
 
-              <button className="new-image">
-                <FiPlus size={24} color="#15b6d6" />
-              </button>
             </div>
           </fieldset>
 

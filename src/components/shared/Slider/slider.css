@@ -7,7 +7,7 @@
 .slider .images {
     display: grid;
     grid-template-columns: repeat(6 ,1fr);
-    column-gap: 16px;
+    grid-gap: 16px;
   
     margin: 16px 40px 0;
 }
