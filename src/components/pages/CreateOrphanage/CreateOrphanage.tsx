@@ -9,6 +9,7 @@ import mapMarkerImg from '../../../images/logo2.svg';
 import './create-orphanage.css';
 import SideBar from "../../shared/SideBar/SideBar";
 import api from "../../../services/api";
+import { useHistory } from "react-router-dom";
 
 const happyMapIcon = L.icon({
   iconUrl: mapMarkerImg,
@@ -19,6 +20,8 @@ const happyMapIcon = L.icon({
 })
 
 export default function CreateOrphanage() {
+  const history = useHistory();
+
   const [mapMarkerLatLong, setMapMarkerLatLong] = useState({ lat: 0, lng: 0 });
 
   const [name, setName] = useState('');
@@ -33,7 +36,7 @@ export default function CreateOrphanage() {
     setMapMarkerLatLong(e.latlng);
   }
 
-  function handleFormSubmit(ev: FormEvent) {
+  async function handleFormSubmit(ev: FormEvent) {
     ev.preventDefault();
 
     const data = new FormData();
@@ -48,9 +51,9 @@ export default function CreateOrphanage() {
 
     images.forEach(image => data.append('images', image));
 
-    api.post('orphanages', data).then(res => {
+    await api.post('orphanages', data);
 
-    });
+    history.push('/orphanages');
   }
 
   function handleImagesSelect(ev: ChangeEvent<HTMLInputElement>) {
