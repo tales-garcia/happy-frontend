@@ -1,24 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './styles/global.css';
+import Routes from './routes';
+
+
+export interface OrphanageProps {
+  id: number,
+  name: string,
+  longitude: number,
+  latitude: number,
+  description: string,
+  instructions: string,
+  open_hours: string,
+  open_on_weekends: boolean,
+  images: {
+      url: string,
+      id: number
+  }[]
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Routes/>
     </div>
   );
 }
