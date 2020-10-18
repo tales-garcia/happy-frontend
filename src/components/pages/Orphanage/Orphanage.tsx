@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import api from "../../../services/api";
 import { OrphanageProps } from "../../../App";
 import Slider from "../../shared/Slider/Slider";
+import Stroke from "../../shared/Stroke/Stroke";
 
 const happyMapIcon = L.icon({
   iconUrl: mapMarkerImg,
@@ -100,6 +101,70 @@ export default function Orphanage() {
     );
   
   } else {
-    return <div></div>
+    return (<div id="page-orphanage">
+              <SideBar/>
+
+              <main>
+                <div className="orphanage-details">
+                  
+
+                  <img src="" alt=""/>
+                  
+                  <div className="orphanage-details-content">
+                    <h1><Stroke width={500} height={50} color="#858585" /></h1>
+                    <p>
+                      <Stroke styles={{marginBottom: 10}} width={500} height={20} color="#BDBDBD" />
+                      <Stroke styles={{marginBottom: 10}} width={400} height={20} color="#BDBDBD" />
+                      <Stroke styles={{marginBottom: 10}} width={460} height={20} color="#BDBDBD" />
+                      <Stroke width={500} height={20} color="#BDBDBD" />
+                    </p>
+
+                    <div className="map-container">
+                      <Map 
+                        center={[-15.8292324, -47.9310554]}
+                        zoom={16} 
+                        style={{ width: '100%', height: 280 }}
+                        dragging={false}
+                        touchZoom={false}
+                        zoomControl={false}
+                        scrollWheelZoom={false}
+                        doubleClickZoom={false}
+                      >
+                        <TileLayer 
+                          url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+                        />
+                      </Map>
+
+                      <footer>
+                        <p><Stroke width={100} height={20} color="#BDBDBD" /></p>
+                      </footer>
+                    </div>
+
+                    <hr />
+
+                    <h2><Stroke width={180} height={40} color="#858585" /></h2>
+                    <p><Stroke width={100} height={20} color="#BDBDBD" /></p>
+
+                    <div className="open-details">
+                      <div className="hour">
+                        <FiClock size={32} color="#15B6D6" />
+                        <Stroke width={180} height={40} color="#858585" /> <br />
+                        <Stroke width={100} height={20} color="#BDBDBD" />
+                      </div>
+                      <div className="open-on-weekends">
+                        <FiInfo size={32} color="#39CC83" />
+                        <Stroke width={180} height={30} color="#858585" /> <br />
+                        <Stroke width={100} height={20} color="#BDBDBD" />
+                      </div>
+                    </div>
+
+                    <button type="button" className="contact-button">
+                      <FaWhatsapp size={20} color="#FFF" />
+                      <Stroke width={300} height={20} color="#60F35B" />
+                    </button>
+                  </div>
+                </div>
+              </main>
+            </div>)
   }
 }

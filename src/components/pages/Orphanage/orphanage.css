@@ -47,6 +47,8 @@
 .orphanage-details .orphanage-details-content .map-container footer {
   padding: 20px 0;
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .orphanage-details .orphanage-details-content .map-container footer a {
