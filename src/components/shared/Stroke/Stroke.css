@@ -1,0 +1,15 @@
+.stroke {
+    animation: 1.2s ease-in-out 0s infinite normal none running gradient;
+    background-color: rgb(179, 179, 179);
+    background-size: 200px 100%;
+    background-repeat: no-repeat;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: -200px 0px;
+    }
+    100% {
+        background-position: calc(200px + 100%) 0px;
+    }
+}

@@ -160,7 +160,7 @@ export default function Orphanage() {
 
                     <button type="button" className="contact-button">
                       <FaWhatsapp size={20} color="#FFF" />
-                      <Stroke width={300} height={20} color="#60F35B" />
+                      <Stroke gradientColor="rgb(84 210 80)" width={300} height={20} color="#60F35B" />
                     </button>
                   </div>
                 </div>
